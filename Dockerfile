@@ -2,7 +2,7 @@ FROM debian:experimental AS builder
 USER root
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        git build-essential libpulse-dev libsndfile-dev \
+        sudo git build-essential libpulse-dev libsndfile-dev \
         autoconf libtool intltool pkg-config \
         lsb-release dpkg-dev \
     && rm -rf /var/lib/apt/lists/*
