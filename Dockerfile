@@ -1,8 +1,9 @@
 FROM debian:experimental AS builder
 USER root
-RUN apt-get update \
+RUN sed -i 's/Types: deb/Types: deb deb-src/' /etc/apt/sources.list.d/debian.sources \
+    && apt-get update \
     && apt-get install -y --no-install-recommends \
-        sudo git build-essential libpulse-dev libsndfile-dev \
+        git build-essential libpulse-dev libsndfile-dev \
         autoconf libtool intltool pkg-config \
         lsb-release dpkg-dev \
     && rm -rf /var/lib/apt/lists/*
