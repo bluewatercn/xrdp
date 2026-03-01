@@ -2,8 +2,9 @@ FROM debian:experimental AS builder
 USER root
 RUN apt-get update \
     && apt-get install -y --no-install-recommends --no-install-suggests git build-essential libpulse-dev libsndfile-dev autoconf libtool intltool libpulse-dev pkg-config 
+WORKDIR /root
 RUN git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git
-RUN cd pulseaudio-module-xrdp
+WORKDIR /root/pulseaudio-module-xrdp
 RUN scripts/install_pulseaudio_sources_apt.sh
 RUN ./bootstrap && ./configure PULSE_DIR=/root/pulseaudio.src
 RUN make
