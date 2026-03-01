@@ -5,7 +5,7 @@ RUN sed -i 's/Types: deb/Types: deb deb-src/' /etc/apt/sources.list.d/debian.sou
     && apt-get install -y --no-install-recommends \
         sudo git build-essential libpulse-dev libsndfile-dev \
         autoconf libtool intltool pkg-config \
-        lsb-release dpkg-dev \
+        lsb-release dpkg-dev doxygen \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /root
 RUN git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git
