@@ -1,7 +1,12 @@
 FROM debian:experimental AS builder
 USER root
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends --no-install-suggests git build-essential libpulse-dev libsndfile-dev autoconf libtool intltool libpulse-dev pkg-config 
+RUN sed -i 's/^deb /deb-src /p' /etc/apt/sources.list \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        git build-essential libpulse-dev libsndfile-dev \
+        autoconf libtool intltool pkg-config \
+        lsb-release dpkg-dev \
+    && rm -rf /var/lib/apt/lists/*
 WORKDIR /root
 RUN git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git
 WORKDIR /root/pulseaudio-module-xrdp
