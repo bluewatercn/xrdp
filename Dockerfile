@@ -5,7 +5,7 @@ RUN apt-get update \
 WORKDIR /root
 RUN git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git
 WORKDIR /root/pulseaudio-module-xrdp
-RUN scripts/install_pulseaudio_sources_apt.sh
+RUN ./scripts/install_pulseaudio_sources_apt.sh
 RUN ./bootstrap && ./configure PULSE_DIR=/root/pulseaudio.src
 RUN make
 RUN make install
