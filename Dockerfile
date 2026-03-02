@@ -20,7 +20,6 @@ RUN mkdir -p /tmp/modules;for i in $(cat /tmp/path.txt);do cp $i /tmp/modules;do
 
 ########################################################################
 FROM debian:experimental
-ARG USER=user
 ENV USER=user
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -37,12 +36,8 @@ RUN apt-get update \
      && rm -rf /var/lib/apt/lists/* \
      && rm -rf /usr/share/doc/* /usr/share/man/* /tmp/* \
      && rm -rf /usr/share/locale/* \
-     && chmod +x /entrypoint.sh \
-     && adduser --gecos '' $USER \
-     && adduser $USER sudo \
-     && echo $USER:$USER | chpasswd \
-     && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers 
-
+     && chmod +x /entrypoint.sh 
+     
 # COPY FROM BUILDER
 COPY --from=builder /tmp/path.txt /tmp/path.txt
 COPY --from=builder /tmp/modules/ /tmp/modules/
@@ -58,6 +53,5 @@ RUN  echo '#!/bin/sh' > /etc/xrdp/startwm.sh  \
      && echo 'exec openbox-session' >> /etc/xrdp/startwm.sh \
      && chown -R $USER:$USER /home/$USER
 
-WORKDIR /home/$USER
 ENTRYPOINT ["/entrypoint.sh"]
 
