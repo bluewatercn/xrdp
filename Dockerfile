@@ -50,8 +50,7 @@ RUN  echo '#!/bin/sh' > /etc/xrdp/startwm.sh  \
      && echo 'pactl load-module module-xrdp-source' >> /etc/xrdp/startwm.sh \
      && echo 'pactl set-default-sink xrdp-sink' >> /etc/xrdp/startwm.sh \
      && echo 'pactl set-default-source xrdp_source' >> /etc/xrdp/startwm.sh \
-     && echo 'exec openbox-session' >> /etc/xrdp/startwm.sh \
-     && chown -R $USER:$USER /home/$USER
+     && echo 'exec openbox-session' >> /etc/xrdp/startwm.sh 
 
 ENTRYPOINT ["/entrypoint.sh"]
 
